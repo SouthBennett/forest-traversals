@@ -1,6 +1,8 @@
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class TreeProblems {
 
@@ -62,7 +64,7 @@ public class TreeProblems {
    5
    */
   public static <T> void postOrder(Map<T, List<T>> tree, T root) {
-    if (!tree.containsKey(root)) {
+    if (tree == null || !tree.containsKey(root)) {
       return;
     }
 
@@ -121,7 +123,15 @@ public class TreeProblems {
    Hint: There's a simple way to do this!
   */
   public static int sumTree(Map<Integer, List<Integer>> tree) {
-    return -1;
+    if (tree == null) return 0;
+
+    int sum = 0;
+
+    for (int val : tree.keySet()) {
+      sum += val;
+    }
+
+    return sum;
   }
 
   /*
@@ -144,6 +154,25 @@ public class TreeProblems {
    Hint: No recursion needed! Think about how you would do this by hand.
   */
   public static <T> T findRoot(Map<T, List<T>> tree) {
+    // Create a set to store every node that appears as a child
+    Set<T> set = new TreeSet<>();
+
+    // Loop through all the values in the map (each value is a list of children)
+    for (List<T> children : tree.values()) {
+      // Loop through each child in the current list
+      for (T child : children) {
+        // Add the child to the set
+        set.add(child);
+      } 
+    }
+
+    // Check every node that appears as a parent (the map keys)    
+    for (T node : tree.keySet()) {
+      // If a node never appeared in the child set, it means it has not parent, so it must be a root
+      if (!set.contains(node)) {
+        return node;
+      }
+    }
     return null;
   }
 
@@ -166,6 +195,15 @@ public class TreeProblems {
    
   */
   public static <T> int maxDepth(Node<T> root) {
+    if (root == null) return 0;
+
+    int maxDepth = 0;
+
+    for (List<T> child : children) {
+
+    }
+
+
     return -1;
   }
 
